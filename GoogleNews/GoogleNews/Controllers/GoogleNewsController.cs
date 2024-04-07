@@ -8,19 +8,27 @@ namespace YourNamespace
 {
     public class GoogleNewsController : Controller
     {
-        private readonly GoogleNewsDAL _newsDAL;
+        private readonly GoogleNewsDAL newsDAL;
 
-        public GoogleNewsController(GoogleNewsDAL newsDAL)
+        /// <summary>
+        /// Defination of object DAL.
+        /// </summary>
+        /// <param name="_newsDAL"></param>
+        public GoogleNewsController(GoogleNewsDAL _newsDAL)
         {
-            _newsDAL = newsDAL;
+            newsDAL = _newsDAL;
         }
 
+        /// <summary>
+        /// Function that return akk data by call to DAL.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAllNews()
         {
             try
             {
-                var news = await _newsDAL.GetAllNews();
+                var news = await newsDAL.GetAllNews();
                 return Ok(news);
             }
             catch (Exception)
@@ -29,31 +37,30 @@ namespace YourNamespace
             }
         }
 
+        /// <summary>
+        /// The function get title and return Item of title.
+        /// by used object of DAL.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetItem(string title)
         {
-            if (title == "null")
+            try
             {
-                return Ok(null);
+                var newsItem = await newsDAL.GetItem(title);
+                if (newsItem != null)
+                {
+                    return Ok(newsItem);
+                }
+                else
+                {
+                    return NotFound("Not found");
+                }
             }
-            else
+            catch (Exception)
             {
-                try
-                {
-                    var newsItem = await _newsDAL.GetItem(title);
-                    if (newsItem != null)
-                    {
-                        return Ok(newsItem);
-                    }
-                    else
-                    {
-                        return NotFound("Not found");
-                    }
-                }
-                catch (Exception)
-                {
-                    return StatusCode(500, "Internal Server Error");
-                }
+                return StatusCode(500, "Internal Server Error");
             }
             return BadRequest();
         }

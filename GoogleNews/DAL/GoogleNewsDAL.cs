@@ -1,5 +1,6 @@
 ﻿using DAL.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions;
 using System.Xml.Linq;
 
 namespace DAL
@@ -11,22 +12,27 @@ namespace DAL
         private const string CacheKey = "GoogleNewsFeed";
 
         /// <summary>
-        /// c'tor  
+        /// c'tor dfinition memoryCache.
         /// </summary>
         /// <param name="memoryCache"></param>
-        public GoogleNewsDAL() {}
-
         public GoogleNewsDAL(IMemoryCache memoryCache)
         {
             _cache = memoryCache;
         }
+
+        /// <summary>
+        /// Function that returned all data from cache.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Item>?> GetAllNews()
         {
+            //The data in cache
             if (_cache.TryGetValue(CacheKey, out IEnumerable<Item> cachedNews))
             {
                 return cachedNews;
             }
 
+            //The data is'nt cache.
             try
             {
                 cachedNews = await this.fetchNews();
@@ -34,12 +40,17 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //print exception to log file.
+                LogUtility.AddToLog("execption: " + ex.Message);
                 return null;
             }
         }
 
-
+        /// <summary>
+        /// Save data in cache.
+        /// The function Makes external API calls
+        /// </summary>
+        /// <returns></returns>
         private async Task<IEnumerable<Item>> fetchNews()
         {
 
@@ -77,6 +88,11 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// The function returned one Item acorrding to title.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public async Task<Item>? GetItem(string title)
         {
             try
@@ -91,7 +107,8 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //print exception to log file.
+                LogUtility.AddToLog("execption: "+ ex.Message);
                 return null;
             }
         }
