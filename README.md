@@ -1,5 +1,7 @@
 # **GoogleNews**
-web aplication 
+#### web aplication 
+#### Displays topics from the RSS feed of Google News, 
+#### by clicking on a topic - the name, content, link to the full article opens,
 
 ## Link Screen Recording
   https://drive.google.com/file/d/1LpP0qQFTprCfj58kMEChg9I3GaodHKhV/view
