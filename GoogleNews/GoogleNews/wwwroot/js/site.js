@@ -57,10 +57,10 @@ const getTitles = () => {
         success: function (data) {
             const ul = document.getElementById("Titles");
             Titles = $("#Titles");
-            data.forEach(item => {
+            data?data.forEach(item => {
                 var newsItemHtml = '<a href="#" class="title" data-title="' + item.title + '">' + item.title + '</a>';
                 Titles.append(newsItemHtml);
-            });
+            }):'';
 
             //Add event listener.
             //On click return all data of title.
