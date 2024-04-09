@@ -55,8 +55,7 @@ const getTitles = () => {
 
         //Use JQuery and JS instead of repeater control.
         success: function (data) {
-            const ul = document.getElementById("Titles");
-            Titles = $("#Titles");
+            const Titles = $("#Titles");
             data?data.forEach(item => {
                 var newsItemHtml = '<a href="#" class="title" data-title="' + item.title + '">' + item.title + '</a>';
                 Titles.append(newsItemHtml);

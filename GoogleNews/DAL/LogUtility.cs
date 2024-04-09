@@ -9,11 +9,11 @@ namespace DAL
     public static class LogUtility//Log file.
     {
         public static string logfile;
-        static LogUtility()//Initial definition fo log file.
+        static LogUtility()//Initial definition of log file.
         {
             DateTime td = new DateTime();
             td = DateTime.Now;//Current time.
-            String tds = td.Year + "" + td.Month + "" + td.Day + " T " + td.Hour + "" + td.Minute + "" + td.Second + "_" + td.Millisecond;//המרת הזמן לטקסט
+            String tds = td.Year + "" + td.Month + "" + td.Day + " T " + td.Hour + "" + td.Minute + "" + td.Second + "_" + td.Millisecond;//onvert time to text.
             logfile = @"C:\Users\user1\GoogleNews\Logs\google_news_" + tds + ".txt";//Definition the file + time.
         }
 
