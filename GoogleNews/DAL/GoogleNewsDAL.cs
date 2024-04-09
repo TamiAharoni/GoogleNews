@@ -41,7 +41,7 @@ namespace DAL
             catch (Exception ex)
             {
                 //print exception to log file.
-                LogUtility.AddToLog("execption: " + ex.Message);
+                LogUtility.AddToLog("exception: " + ex.Message);
                 return null;
             }
         }
@@ -108,7 +108,7 @@ namespace DAL
             catch (Exception ex)
             {
                 //print exception to log file.
-                LogUtility.AddToLog("execption: "+ ex.Message);
+                LogUtility.AddToLog("exception: "+ ex.Message);
                 return null;
             }
         }
